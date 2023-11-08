@@ -106,74 +106,89 @@ void ciclo(){
 			delay (200);
 		}
 		
-		//Essas variáveis recebem o valor de 1023 quando o botão é apertado.
-		int pg = analogRead(pushG);
-		int pr = analogRead(pushR);
-		int py = analogRead(pushY);
-		int pb = analogRead(pushB);
+		int auxiliar = 0;
+		int terminou = 0;
 		
-		/*Se o botão dessas luzes for apertado, ele vai testar se a
-		luz é a correta ou não e retornar 1 para acertou quando a resposta
-		for certa e 0 quando for a errada.*/
-		if (pg == 1023){ 
-			digitalWrite (ledG, HIGH);
-			tone (buz, 262, 500);
-			if (luz == 1){ //Testa se é a luz correta que foi acessa.
-				pont++; //Adiciona 1 ponto na pontuação.
+		while (terminou == 0 && acertou == 1){
+			
+			terminou = 0;
+			//Essas variáveis recebem o valor de 1023 quando o botão é apertado.
+			int pg = analogRead(pushG);
+			int pr = analogRead(pushR);
+			int py = analogRead(pushY);
+			int pb = analogRead(pushB);
+			
+			/*Se o botão dessas luzes for apertado, ele vai testar se a
+			luz é a correta ou não e retornar 1 para acertou quando a resposta
+			for certa e 0 quando for a errada.*/
+			if (pg == 1023){ 
+				digitalWrite (ledG, HIGH);
+				tone (buz, 262, 500);
+				if (luz == 1){ //Testa se é a luz correta que foi acessa.
+					pont++; //Adiciona 1 ponto na pontuação.
+					terminou++
+				}
+				else{
+					acertou = 0; //Se o jogador errou, retorna 0
+				}
+				while (pg == 1023) {pg = analogRead(pushG);} /*Mantem a luz ligada enquanto
+															  o botão estiver apertado*/
+				delay (500);
+				digitalWrite(ledG, LOW);
+				delay (500);
 			}
-			else{
-				acertou = 0; //Se o jogador errou, retorna 0
+			if (pr == 1023){ 
+				digitalWrite (ledR, HIGH);
+				tone (buz, 294, 500);
+				if (luz == 2){ //Testa se é a luz correta que foi acessa.
+					pont++; //Adiciona 1 ponto na pontuação.
+					terminou ++;
+				}
+				else{
+					acertou = 0; //Se o jogador errou, retorna 0
+				}
+				while (pr == 1023) {pr = analogRead(pushR);} /*Mantem a luz ligada enquanto
+															  o botão estiver apertado*/
+				delay (500);
+				digitalWrite(ledR, LOW);
+				delay (500);
 			}
-			while (pg == 1023) {pg = analogRead(pushG)} /*Mantem a luz ligada enquanto
-														  o botão estiver apertado*/
-			delay (500);
-			digitalWrite(ledG, LOW);
-			delay (500);
-		}
-		if (pr == 1023){ 
-			digitalWrite (ledR, HIGH);
-			tone (buz, 294, 500);
-			if (luz == 2){ //Testa se é a luz correta que foi acessa.
-				pont++; //Adiciona 1 ponto na pontuação.
+			if (py == 1023){ 
+				digitalWrite (ledY, HIGH);
+				tone (buz, 330, 500);
+				if (luz == 3){ //Testa se é a luz correta que foi acessa.
+					pont++; //Adiciona 1 ponto na pontuação.
+					terminou++;
+				}
+				else{
+					acertou = 0; //Se o jogador errou, retorna 0
+				}
+				while (py == 1023) {py = analogRead(pushY);} /*Mantem a luz ligada enquanto
+															  o botão estiver apertado*/
+				delay (500);
+				digitalWrite(ledY, LOW);
+				delay (500);
 			}
-			else{
-				acertou = 0; //Se o jogador errou, retorna 0
+			if (pb == 1023){ 
+				digitalWrite (ledB, HIGH);
+				tone (buz, 349, 500);
+				if (luz == 4){ //Testa se é a luz correta que foi acessa.
+					pont++; //Adiciona 1 ponto na pontuação.
+					terminou++;
+				}
+				else{
+					acertou = 0; //Se o jogador errou, retorna 0
+				}
+				while (pb == 1023) {pb = analogRead(pushB);} /*Mantem a luz ligada enquanto
+															  o botão estiver apertado*/
+				delay (500);
+				digitalWrite(ledB, LOW);
+				delay (500);
 			}
-			while (pr == 1023) {pr = analogRead(pushR)} /*Mantem a luz ligada enquanto
-														  o botão estiver apertado*/
-			delay (500);
-			digitalWrite(ledR, LOW);
-			delay (500);
-		}
-		if (py == 1023){ 
-			digitalWrite (ledY, HIGH);
-			tone (buz, 330, 500);
-			if (luz == 3){ //Testa se é a luz correta que foi acessa.
-				pont++; //Adiciona 1 ponto na pontuação.
+			
+			if (terminou < auxiliar){
+				terminou = 1;
 			}
-			else{
-				acertou = 0; //Se o jogador errou, retorna 0
-			}
-			while (py == 1023) {py = analogRead(pushY)} /*Mantem a luz ligada enquanto
-														  o botão estiver apertado*/
-			delay (500);
-			digitalWrite(ledY, LOW);
-			delay (500);
-		}
-		if (pb == 1023){ 
-			digitalWrite (ledB, HIGH);
-			tone (buz, 349, 500);
-			if (luz == 4){ //Testa se é a luz correta que foi acessa.
-				pont++; //Adiciona 1 ponto na pontuação.
-			}
-			else{
-				acertou = 0; //Se o jogador errou, retorna 0
-			}
-			while (pb == 1023) {pb = analogRead(pushB)} /*Mantem a luz ligada enquanto
-														  o botão estiver apertado*/
-			delay (500);
-			digitalWrite(ledB, LOW);
-			delay (500);
 		}
 	}
 	
